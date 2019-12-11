@@ -64,7 +64,7 @@ void blit_num256(uint16_t num, uint16_t x, uint16_t y, uint8_t color_mode)
 
 void SetupSound()
 {
-    pinMode(25, OUTPUT);  //設定蜂鳴器的腳位為輸出
+    pinMode(17, OUTPUT);  //設定蜂鳴器的腳位為輸出
     ledcSetup(1, 400, 8); //ledcSetup(設定頻道1的頻率為400解析度為8位元)
     ledcAttachPin(25, 1); //ledcAttachPin(將腳位25定義為頻道1)
 }
