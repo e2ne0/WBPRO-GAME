@@ -2,7 +2,11 @@
 #include <wifiboypro.h>
 #include "wb-sprite.h"
 
-void blit_num256(uint16_t num, uint16_t x, uint16_t y, uint8_t color_mode)
+// num 只能傳正整數
+// x X座標
+// y Y座標
+// colourMode 顏色選擇
+void blit_num256(uint16_t num, uint16_t x, uint16_t y, uint8_t colourMode)
 {
     uint16_t d[5];
 
@@ -14,10 +18,13 @@ void blit_num256(uint16_t num, uint16_t x, uint16_t y, uint8_t color_mode)
 
     for (int i = 0; i < 5; i++)
     {
-        wbpro_blitBuf8(d[i] * 8 + 120, color_mode * 8, 240, x + i * 8, y, 8, 8, (uint8_t *)sprites); //將d[0]~d[4]逐個顯示並排列
+        wbpro_blitBuf8(d[i] * 8 + 120, colourMode * 8, 240, x + i * 8, y, 8, 8, (uint8_t *)sprites); //將d[0]~d[4]逐個顯示並排列
     }
 }
 
+// str 只能傳大寫英文字母
+// x X座標
+// y Y座標
 void blit_str256(const char *str, int x, int y)
 {
     for (int i = 0; i < strlen(str); i++)
@@ -36,33 +43,40 @@ void blit_str256(const char *str, int x, int y)
             wbpro_blitBuf8(42, 16, 240, x + i * 8, y, 61, 8, (uint8_t *)sprites);
     }
 }
-void blit_colour256(int x,int y,int width,int hight,uint8_t colour)
+
+// width 色塊寬度
+// height 色塊高度
+// x X座標
+// y Y座標
+// colourMode 顏色選擇
+void blit_colour256(int width,int height, int x,int y,uint8_t colourMode)
 {
-    for(int i = y; i < y + hight; i++)
+    for(int i = y; i < y + height; i++)
     {
         for(int j = x; j < x + width; j++)
         {
-            wbpro_setBuf8(i * 240 + j, colour);
+            wbpro_setBuf8(i * 240 + j, colourMode);
         }
     }
 }
 
 void setup()
 {
-    wbpro_init();
-    wbpro_initBuf8();
-    for(int i=0; i<256; i++)
-        wbpro_setPal8(i, wbpro_color565(sprite_pal[i][0],sprite_pal[i][1],sprite_pal[i][2]));
+    wbpro_init(); // 初始化 wifi-boy
+    wbpro_initBuf8(); // 初始化螢幕緩存
+    for(int i=0; i<256; i++) // 定義 256色（唯一色庫）
+        wbpro_setPal8(i, wbpro_color565(standardColour[i][0],standardColour[i][1],standardColour[i][2]));
 }
 
 void loop()
 {
-    wbpro_clearBuf8();
+    wbpro_clearBuf8(); // 清除螢幕緩存（清掉螢幕上的內容）
 
+    // 主程式從這邊開始
     blit_num256(123, 0, 0, 1);
-    blit_str256("HELLO WORLD",0,8);
-    blit_colour256(0,16,240,8,5);
-
-    wbpro_blit8();
+    blit_str256("HELLO WORLD!",0,8);
+    blit_colour256(100,100,5,32,224);
+    
+    wbpro_blit8(); // 點亮螢幕（把東西秀在畫面上）
 }
 
