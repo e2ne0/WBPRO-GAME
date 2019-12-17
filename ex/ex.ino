@@ -71,12 +71,15 @@ void setup()
 void loop()
 {
     wbpro_clearBuf8(); // 清除螢幕緩存（清掉螢幕上的內容）
-
+    
+    // （更新）圖片顯示部分
+    // wbpro_drawImage(0,133,128,128,(uint16_t *)img16bit); // 16bit 圖片會造成圖片閃爍狀況 顯色佳
+    wbpro_blitBuf8(0,0,128,0,133,128,128,(uint8_t *)img8bit); // 8bit 圖片不會造成圖片 顯色差
+    
     // 主程式從這邊開始
     blit_num256(123, 0, 0, 1);
     blit_str256("HELLO WORLD!",0,8);
     blit_colour256(100,100,5,32,224);
-    
+
     wbpro_blit8(); // 點亮螢幕（把東西秀在畫面上）
 }
-
