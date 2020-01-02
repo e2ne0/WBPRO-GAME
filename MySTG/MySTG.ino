@@ -87,7 +87,7 @@ void setup()
     wbpro_initBuf8();
     SetupSound();
     for(int i=0; i<256; i++)
-        wbpro_setPal8(i, wbpro_color565(sprite_pal[i][0],sprite_pal[i][1],sprite_pal[i][2]));
+        wbpro_setPal8(i, wbpro_color565(standardColour[i][0],standardColour[i][1],standardColour[i][2]));
 
     wbpro_fillScreen(wbBLACK); //設定背景(黑色)
 
