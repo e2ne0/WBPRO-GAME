@@ -110,7 +110,7 @@ void setup()
     // enemySpawnCD = currentTime + 1000; //讓下台敵機出生CD為1秒後
     // enemyAlive[0] = true;              //設置第一個敵機為存活
     pinMode(21, OUTPUT);
-    pinMode(26, OUTPUT);
+    pinMode(17, OUTPUT);
     // bulletSpawnCD = currentTime; //讓第一顆子彈馬上到出生時間
 }
 
@@ -144,7 +144,7 @@ void loop()
     if (currentTime > soundStop)
     {
         MakeSound(0); //於停止時間把音量降為0
-        digitalWrite(26,LOW);
+        digitalWrite(17,LOW);
     }
 
     // wbpro_blitBuf8(0, 0, 240,0,0,240,320, (uint8_t *)sprites2);
@@ -297,7 +297,7 @@ void Collision()
                         bulletStatus[i] = 2;
                         SoundFreq(400);                //設定音高為400
                         MakeSound(30);                 //設定音量為30
-                        digitalWrite(26,HIGH);
+                        digitalWrite(17,HIGH);
                         soundStop = currentTime + 100; //設定停止時間為0.1秒後
                     }
                     if (enemyY[j] >= 288 && enemyX[j] + 10 >= masterX && enemyX[j] <= masterX + 15)
